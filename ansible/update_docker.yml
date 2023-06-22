@@ -17,12 +17,12 @@
 
     - name: Stop old container
       become: true
-      command: docker stop bs2nd
+      command: docker stop dmship
       ignore_errors: true
 
     - name: Remove old container
       become: true
-      command: docker rm bs2nd
+      command: docker rm dmship
       ignore_errors: true
 
     - name: Remove old images
@@ -36,4 +36,4 @@
 
     - name: Run new container
       become: true
-      command: docker run -d -p 80:8080 --name bs2nd "{{ docker_images }}"
+      command: docker run -d -p 80:8080 --name dmship "{{ docker_images }}"
