@@ -16,5 +16,6 @@ public class AccountController {
     @PostMapping("/login")
     public String authenticate(@RequestBody AuthenticateRequest authenticateRequest) {
         return accountService.authenticate(authenticateRequest.getUsername(), authenticateRequest.getPassword());
+        
     }
 }
