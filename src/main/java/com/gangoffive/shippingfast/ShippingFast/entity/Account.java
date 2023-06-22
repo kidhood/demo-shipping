@@ -18,6 +18,5 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
     private String username;
-    
     private String password;
 }
