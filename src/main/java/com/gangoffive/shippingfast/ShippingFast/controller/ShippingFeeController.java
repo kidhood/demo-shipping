@@ -16,6 +16,7 @@ public class ShippingFeeController {
 
     @GetMapping
     public ResponseEntity<?> getShippingFee(@RequestParam double distance) {
+        
         return shippingFeeService.calculateShippingFee(distance);
     }
 
