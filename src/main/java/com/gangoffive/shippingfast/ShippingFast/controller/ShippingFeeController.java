@@ -4,6 +4,7 @@ import com.gangoffive.shippingfast.ShippingFast.service.ShippingFeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ public class ShippingFeeController {
     private final ShippingFeeService shippingFeeService;
 
     @GetMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> getShippingFee(@RequestParam double distance) {
         
         return shippingFeeService.calculateShippingFee(distance);
