@@ -16,7 +16,7 @@ public class ShippingFeeController {
     private final ShippingFeeService shippingFeeService;
 
     @GetMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "http://localhost:3000,https://birdstore2nd.vercel.app,https://www.birdland2nd.store,https://admin.birdland2nd.store/,http://localhost:3001", allowedHeaders = "*")
     public ResponseEntity<?> getShippingFee(@RequestParam double distance) {
         
         return shippingFeeService.calculateShippingFee(distance);

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
     private final AccountService accountService;
     @PostMapping("/login")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "http://localhost:3000,https://birdstore2nd.vercel.app,https://www.birdland2nd.store,https://admin.birdland2nd.store/,http://localhost:3001", allowedHeaders = "*")
     public String authenticate(@RequestBody AuthenticateRequest authenticateRequest) {
         return accountService.authenticate(authenticateRequest.getUsername(), authenticateRequest.getPassword());
         
