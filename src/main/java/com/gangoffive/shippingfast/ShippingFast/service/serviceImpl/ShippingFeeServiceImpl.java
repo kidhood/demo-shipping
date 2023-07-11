@@ -6,6 +6,7 @@ import com.gangoffive.shippingfast.ShippingFast.repository.ShippingFeeRepository
 import com.gangoffive.shippingfast.ShippingFast.service.ShippingFeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,6 @@ public class ShippingFeeServiceImpl implements ShippingFeeService {
     @Override
     public ResponseEntity<?> calculateShippingFee(double distance) {
         if (distance > 0) {
-            log.info("distance {}", distance);
             Optional<ShippingFee> shippingFeeByDistanceRange = shippingFeeRepository.findShippingFeeByDistanceRange(distance);
 
             double feeShip = shippingFeeByDistanceRange.get().getFee() * distance;
@@ -28,8 +28,16 @@ public class ShippingFeeServiceImpl implements ShippingFeeService {
                     .shippingFee(Math.round(feeShip * 100.0) / 100.0)
                     .build();
             return ResponseEntity.ok(shippingFeeResponseDto);
+        } else if (distance == 0) {
+            Optional<ShippingFee> shippingFeeByDistanceRange = shippingFeeRepository.findShippingFeeByDistanceRange(distance);
+
+            ShippingFeeResponseDto shippingFeeResponseDto = ShippingFeeResponseDto.builder()
+                    .priceEachKm(shippingFeeByDistanceRange.get().getFee())
+                    .shippingFee(shippingFeeByDistanceRange.get().getFee())
+                    .build();
+            return ResponseEntity.ok(shippingFeeResponseDto);
         } else {
-            return ResponseEntity.badRequest().body("Distance less than 0");
+            return new ResponseEntity<>("Not support this locate.", HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }
