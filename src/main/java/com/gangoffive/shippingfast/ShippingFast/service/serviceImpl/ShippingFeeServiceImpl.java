@@ -1,5 +1,6 @@
 package com.gangoffive.shippingfast.ShippingFast.service.serviceImpl;
 
+import com.gangoffive.shippingfast.ShippingFast.api.response.ErrorResponse;
 import com.gangoffive.shippingfast.ShippingFast.dto.ShippingFeeResponseDto;
 import com.gangoffive.shippingfast.ShippingFast.entity.ShippingFee;
 import com.gangoffive.shippingfast.ShippingFast.repository.ShippingFeeRepository;
@@ -37,7 +38,11 @@ public class ShippingFeeServiceImpl implements ShippingFeeService {
                     .build();
             return ResponseEntity.ok(shippingFeeResponseDto);
         } else {
-            return new ResponseEntity<>("Not support this locate.", HttpStatus.NOT_ACCEPTABLE);
+            ErrorResponse errorResponse = ErrorResponse.builder()
+                    .errorCode(HttpStatus.NOT_ACCEPTABLE.value())
+                    .errorMessage("Not support this locate.")
+                    .build();
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }
